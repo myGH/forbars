@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Статьи | комментарий{% endblock %}
+
+{% block pagename %}комментарий{% endblock %}
+
+{% block content %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'articles:add_comment' article.id %}" method="post">
+        {% csrf_token %}
+        Текст комментария<br>
+        <textarea id="comment" name="comment"></textarea><br>
+        <input type="submit" value="Отправить" />
+    </form>
+{% endblock %}

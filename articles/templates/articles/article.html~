@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Статьи|{% if not article %}Новая статья{% else %}Редактировать статью{% endif %}{% endblock %}
+
+{% block pagename %}{% if not article %}Новая статья{% else %}Редактировать статью{% endif %}{% endblock %}
+
+{% block content %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% if not article %}{% url 'articles:add_article' %}{% else %}{% url 'articles:update_article' article.id %}{% endif %}" method="post">
+        {% csrf_token %}
+        Заголовок
+        <input type="text"  id="title" name="title" {% if article %}value="{{ article.title }}" {% endif %}><br>
+        Текст статьи<br>
+        <textarea id="text" name="text">{% if article %}{{ article.article_text }}{% endif %}</textarea><br>
+        <input type="submit" value="Отправить" />
+    </form>
+{% endblock %}

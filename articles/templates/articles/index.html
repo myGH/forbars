@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Статьи{% endblock %}
+
+{% block pagename %}все статьи{% endblock %}
+
+{% block content %}
+                <a id="fornew" href="{% url 'articles:add' %}">Добавить статью</a><br/>
+                {% if articles %}
+                    {% for article in articles %}
+			          <article>
+                          <h2><a href="{% url 'articles:detail' article.id %}">{{ article.title }}</a></h2>
+                          <p>{{ article.preview|linebreaksbr }}</p>
+                          <div class="articleinfo">{{ article.date_change|date:"d M Y в G:i"}}<a href="{% url 'articles:detail' article.id %}">Читать далее &ndash;></a></div>
+                      </article><br/>
+                    {% endfor %}
+                  <div id="paginator">
+                    {% if previousArrow %}
+                        <a href="{% url 'index' previousArrow %}"><&ndash;</a>
+                    {% endif %}
+                    {% if previous %}
+                        {% for p in previous %}
+                            <a href="{% url 'index' p %}">{{p}}</a>
+                        {% endfor %}
+                    {% endif %}
+                    {% if this %}
+                        {{this}}
+                    {% endif %}
+                    {% if next %}
+                        {% for n in next %}
+                            <a href="{% url 'index' n %}">{{n}}</a>
+                        {% endfor %}
+                    {% endif %}
+                    {% if nextArrow %}
+                        <a href="{% url 'index' nextArrow %}">&ndash;></a>
+                    {% endif %}
+                  </div>
+                {% else %}
+    <p>еще никто не написал статью. Будь первым:)</p>
+                {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div id="base">
+		<header>
+		    <a href="/" id="logo">Статьи</a>
+		</header>
+		<div id="main" class="clearfix">
+            <section id="content">
+                <h1>- {% block pagename %}{% endblock %} -</h1>
+                {% block content %}{% endblock %}
+            </section>
+		</div>
+    </div>
+    <footer>
+        <a href="/">Статьи</a> 2013
+    </footer>
+  </body>
+</html>

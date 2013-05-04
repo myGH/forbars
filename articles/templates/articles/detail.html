@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Статьи | {{ article.title }}{% endblock %}
+
+{% block pagename %}статья{% endblock %}
+
+{% block content %}
+                      <article>
+                          <h2>{{ article.title }}</h2>
+                          <p>{{ article.article_text|linebreaksbr }}</p>
+                          <div class="articleinfo">{{ article.date_change|date:"d M Y в G:i" }}<a href="{% url 'articles:update' article.id %}">Редактировать</a></div>
+                      </article>
+                      <br>
+                      <a id="fornew" href="{% url 'articles:comment' article.id %}">Добавить комментрарий</a>
+                  {% for comment in article.comment_set.all %}
+                      <article class="comment">
+                          <p>{{ comment.comment_text|linebreaksbr }}</p>
+                          <div class="articleinfo">{{ comment.date_pub|date:"d M Y в G:i" }}</div>
+                      </article>
+                  {% endfor %}
+
+{% endblock %}
